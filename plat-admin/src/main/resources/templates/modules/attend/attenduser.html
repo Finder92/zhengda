@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="attendUser.attendUssname" @keyup.enter="query" placeholder="用户名">
+            </div>
+            <a class="btn btn-default" @click="query">查询</a>
+            <#if shiro.hasPermission("attend:attenduser:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+        </#if>
+
+        <#if shiro.hasPermission("attend:attenduser:update")>
+        <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+    </#if>
+
+    <#if shiro.hasPermission("attend:attenduser:delete")>
+    <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+</#if>
+
+<#if shiro.hasPermission("attend:attenduser:delete")>
+<a class="btn btn-primary" @click="batchsign"><i class="fa fa-id-badge"></i></i>&nbsp;一键签到</a>
+</#if>
+
+</div>
+<table id="jqGrid"></table>
+<div id="jqGridPager"></div>
+</div>
+
+<div v-show="!showList" class="panel panel-default">
+    <div class="panel-heading">{{title}}</div>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-2 control-label">0:用户 1陌生人</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="attendUser.attendUsertype" placeholder="0:用户 1陌生人"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">与会人员姓名</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="attendUser.attendUssname" placeholder="与会人员姓名"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">签到状态</div>
+            <!--<div class="col-sm-10">
+                <input type="text" class="form-control" v-model="attendUser.attendSignstate"
+                       placeholder="签到状态1:已签到 0未签到"/>
+            </div>-->
+            <label class="radio-inline">
+                <input type="radio" name="status" value="0" v-model="attendUser.attendSignstate"/> 未签到
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="status" value="1" v-model="attendUser.attendSignstate"/> 已签到
+            </label>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">签到时间</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="attendUser.attendSigntime" placeholder="签到时间"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">人脸识别记录的时间</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="attendUser.attendCreatetime" placeholder="人脸识别记录的时间"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label"></div>
+            <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..."
+                   @click="saveOrUpdate" value="确定"/>
+            &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+        </div>
+    </form>
+</div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/attend/attenduser.js?_${.now?long}"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="plat-common" />
+        <module name="plat-admin" />
+        <module name="plat-api" />
+        <module name="plat-generator" />
+        <module name="plat-dynamic-datasource" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="plat-admin" options="-parameters" />
+      <module name="plat-api" options="-parameters" />
+      <module name="plat-common" options="-parameters" />
+      <module name="plat-dynamic-datasource" options="-parameters" />
+      <module name="plat-generator" options="-parameters" />
+    </option>
+  </component>
+</project>

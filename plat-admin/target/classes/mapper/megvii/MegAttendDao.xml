@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yckj.modules.megvii.dao.MegAttendDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yckj.modules.megvii.entity.MegAttendEntity" id="megAttendMap">
+        <result property="id" column="id"/>
+        <result property="companyId" column="company_id"/>
+        <result property="companyName" column="company_name"/>
+        <result property="empId" column="emp_id"/>
+        <result property="empName" column="emp_name"/>
+        <result property="date" column="date"/>
+        <result property="recognized" column="recognized"></result>
+        <result property="officeHours" column="office_hours"/>
+        <result property="closingTime" column="closing_time"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    id, company_id, company_name, emp_id, emp_name, date,recognized,office_hours,closing_time
+  </sql>
+    <update id="updateByJobNum" parameterType="com.yckj.modules.megvii.entity.MegAttendEntity">
+        update meg_attend
+        set closing_time=#{closingTime,jdbcType=VARCHAR}
+        where emp_id=#{empId,jdbcType=BIGINT}
+    </update>
+    <select id="queryByJobNumberAndDate" parameterType="com.yckj.modules.megvii.entity.MegAttendEntity" resultType="com.yckj.modules.megvii.entity.MegAttendEntity">
+        select
+        <include refid="Base_Column_List"></include>
+        from meg_attend
+        where emp_id=#{empId,jdbcType=BIGINT} and date=#{date,jdbcType=VARCHAR}
+    </select>
+    <select id="queryByJobNumberAndTime" resultType="com.yckj.modules.megvii.entity.MegAttendEntity">
+        select
+        <include refid="Base_Column_List"></include>
+        from meg_attend
+        where emp_id=#{empId,jdbcType=BIGINT} and recognized=#{recognized,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAll" resultType="com.yckj.modules.megvii.entity.MegAttendEntity">
+        select
+        <include refid="Base_Column_List"></include>
+        from meg_attend
+    </select>
+
+
+</mapper>
